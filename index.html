@@ -388,8 +388,8 @@
           <br>
           <br>
           <p>We first preprocess an input monocular video to obtain obtain the video depth and pose as well as the dynamic masks. 
-            The input video is then decomposed into static and dynamic content. We initialize a soup of oriented planes by fitting them the static scene. 
-            These planes are augmented to capture view-dependent effects and non-planar complex surface. These planes are back-warped to the target view and composited from far to near to generate the target static view. 
+            The input video is then decomposed into static and dynamic content. We initialize a soup of oriented planes by fitting them to the static scene. 
+            These planes are augmented to capture view-dependent effects and non-planar complex surface. To generate the target static view, these planes are back-warped to the target view and composited from far to near efficiently. 
             We estimate per-frame point clouds for dynamic content together with dynamic masks. 
             For temporal consistency, we use optical flows to blend the dynamic content from neighboring frames. The blended dynamic content is then warped to the target view. 
             Finally, the target novel view is rendered by blending the static and dynamic novel content.</p>
@@ -399,8 +399,10 @@
           <span class="column has-text-centered" style="color: #000000;"><b>View-dependent plane texture</b></span>
           <image src="assets/images/view-dependent-texture.svg"></image>
           <br>
-          <p>Since a flat plane cannot sufficiently represent a non-flat surface (a), we augment it with both view-dependent appearance and displacement, encoded by spherical harmonic coefficients. 
-            (b) Given a view direction, we first obtain the view-specific color and displacement, then shift (backwarp) into the final view-specific texture for planar homography warping to the target view.</p>
+          <p>(a) Since a flat plane cannot sufficiently represent a non-flat surface, we augment it with both view-dependent appearance and displacement, encoded by spherical harmonic coefficients. 
+
+            (b) Given a view direction, we first obtain the view-specific color and displacement, then shift (backwarp) into the final view-specific texture for planar homography warping to the target view.
+            (c) Thus, the planes with both view-dependent appearance and displacement can better represent the complex non-planar surface.</p>
         </div>
       </div>
     </div>
