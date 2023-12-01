@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Fast View Synthesis of Casual Videos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fast View Synthesis of Casual Videos</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./assets/css/index.css">
+  <link rel="icon" href="./assets/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./assets/js/fontawesome.all.min.js"></script>
+  <script src="./assets/js/bulma-carousel.min.js"></script>
+  <script src="./assets/js/bulma-slider.min.js"></script>
+  <script src="./assets/js/index.js"></script>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Table of Contents
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#our-results">
+              Our novel view synthesis of casual videos
+            </a>
+            <a class="navbar-item" href="#abstract">
+              Abstract
+            </a>
+            <a class="navbar-item" href="#method-overview">
+              Method overview
+            </a>
+            <a class="navbar-item" href="#comparison-with-dynibar">
+              Comparison with DynIBaR
+            </a>
+            <a class="navbar-item" href="#comparison-with-rodynrf">
+              Comparison with RoDynRF
+            </a>
+            <a class="navbar-item" href="#ablation">
+              Ablation study
+            </a>
+            <a class="navbar-item" href="#realtime-demo">
+              Real-time demo
+            </a>
+            <a class="navbar-item" href="#acknowledgements">
+              Acknowledgements
+            </a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Fast View Synthesis of Casual Videos</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://yaochih.github.io/">Yao-Chih Lee</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://ztzhang.info/">Zhoutong Zhang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="http://kmatzen.com/">Kevin Blackburn-Matzen</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sniklaus.com/welcome">Simon Niklaus</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://jimmie33.github.io/">Jianming Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://jbhuang0604.github.io/">Jia-Bin Huang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://pages.cs.wisc.edu/~fliu/">Feng Liu</a><sup>2</sup>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Maryland, College Park, &nbsp&nbsp </span>
+            <span class="author-block"><sup>2</sup>Adobe Research, &nbsp&nbsp </span>
+            <span class="author-block"><sup>3</sup>Adobe</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>PDF</span>
+                </a>
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+                <a href="#BibTeX"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa fa-book"></i>
+                  </span>
+                  <span>BibTex</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./assets/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+          Our method renders high-quality novel views comparable to state-of-the-art methods <br> but is >100x faster to train and render.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small" id="our-results">
+  <div class="hero-body">
+    <div class="container">
+      <!-- <h2 class="has-text-centered title">
+          <b>Our novel view sythesis of casual videos</b>
+      </h2> -->
+      <div id="results-carousel" class="carousel results-carousel">
+		    <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/snowboard.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/bear.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/tennis.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		    <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/hike.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		    <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/car-turn.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/lucia.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/car-shadow.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/breakdance-flare.mp4"
+                    type="video/mp4">
+          </video>
+        </div>   
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/dog.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/rollerblade.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+		
+      <!----- second row ----->
+      <div id="results-carousel" class="carousel results-carousel">
+        
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/koala.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="train" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/dog_running_on_grass.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		    <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/boy_riding_bike_on_road.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/paragliding-launch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/boy_riding_bike_on_beach.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/longboard.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/mom_and_daughter.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/car-roundabout.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/camel.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+	  </div>
+      <!----- third row ----->
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/train.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" id="train" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/cat_jump.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		    <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/kid-running.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/horsejump-low.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/Balloon1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/corgi.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/bus.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/Balloon2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item">
+          <video poster="" autoplay controls muted loop playsinline height="100%">
+            <source src="./assets/videos/demo/Umbrella.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+	  </div>
+    <!-- <div class="is-centered has-text-centered">
+      <span>Our method can produce diverse novel view synthesis effects for various casual videos.</span>
+    </div> -->
+    </div>
+  </div>
+</section>
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
+        <div class="column has-text-justified">
+          <p>Novel view synthesis from an in-the-wild video is difficult due to challenges like scene dynamics and lack of parallax. While existing methods have shown promising results with implicit neural radiance fields, they are slow to train and render. This paper revisits explicit video representations to synthesize high-quality novel views from a monocular video efficiently. We treat static and dynamic video content separately. Specifically, we build a global static scene model using an extended plane-based scene representation to synthesize temporally coherent novel video. Our plane-based scene representation is augmented with spherical harmonics and displacement maps to capture view-dependent effects and model non-planar complex surface geometry. We opt to represent the dynamic content as per-frame point clouds for efficiency. While such representations are inconsistency-prone, minor temporal inconsistencies are perceptually masked due to motion. We develop a method to quickly estimate such a hybrid video representation and render novel views in real time. Our experiments show that our method can render high-quality novel views from an in-the-wild video with comparable quality to state-of-the-art methods while being 100x faster in training and enabling real-time rendering.</p>
+        </div>
+        <div class="column" style="display: flex; justify-content: center;">
+          <div class="column has-text-justified" style="flex: 1;  max-width: 40%">
+            <image src="assets/images/abstract.svg"/>
+          </div>
+          <div class="column has-text-justified" style="flex: 1; display: table;">
+            <p style="display: table-cell; vertical-align: middle;">
+              Our method only takes 15 minutes to optimize a representation from an in-the-wild video and can render novel views at 27 FPS.
+              <br><br>
+              On the NVIDIA Dataset, our method achieves a rendering quality comparable to state-of-the-art NeRF-based methods but is much faster to train and render. 
+              The bubble size in the figure indicates the training time (GPU-hour).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method-overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <h2 class="title is-3 has-text-centered">Method overview</h2>
+        <div class="column has-text-justified">
+          <image src="assets/images/method-overview.svg"></image>
+          <br>
+          <br>
+          <p>We first preprocess an input monocular video to obtain obtain the video depth and pose as well as the dynamic masks. 
+            The input video is then decomposed into static and dynamic content. We initialize a soup of oriented planes by fitting them the static scene. 
+            These planes are augmented to capture view-dependent effects and non-planar complex surface. These planes are back-warped to the target view and composited from far to near to generate the target static view. 
+            We estimate per-frame point clouds for dynamic content together with dynamic masks. 
+            For temporal consistency, we use optical flows to blend the dynamic content from neighboring frames. The blended dynamic content is then warped to the target view. 
+            Finally, the target novel view is rendered by blending the static and dynamic novel content.</p>
+        </div>
+        <br>
+        <div class="column has-text-justified">
+          <span class="column has-text-centered" style="color: #000000;"><b>View-dependent plane texture</b></span>
+          <image src="assets/images/view-dependent-texture.svg"></image>
+          <br>
+          <p>Since a flat plane cannot sufficiently represent a non-flat surface (a), we augment it with both view-dependent appearance and displacement, encoded by spherical harmonic coefficients. 
+            (b) Given a view direction, we first obtain the view-specific color and displacement, then shift (backwarp) into the final view-specific texture for planar homography warping to the target view.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="comparison-with-dynibar">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Comparison with DynIBaR</h2>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('lucia')">
+                <span>lucia</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('tennis')">
+                <span>tennis</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('car-turn')">
+                <span>car-turn</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('hike')">
+                <span>hike</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('camel')">
+                <span>camel</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_dynibar_comparison('kid-running')">
+                <span>kid-running</span>
+              </span>
+          </div>
+        </div>
+        <div class="column">
+            <video id="video_comparison_with_dynibar" 
+                autoplay controls muted loop playsinline height="100%">
+                <source id="source_comparison_with_dynibar" 
+                    src="./assets/videos/comparisons/dynibar/car-turn.mp4" 
+                    type="video/mp4">
+            </video>
+            <div class="columns">
+              <div class="column has-text-centered">
+                  <h2><b>DynIBaR</b> [Li et al. CVPR 2023]</h2>
+              </div>
+              <div class="column has-text-centered">
+                  <h2><b>Ours</b></h2>
+              </div>
+            </div>
+            <div class="column has-text-justified">
+                <p>*For a fair comparison, we use our video depth and pose preprocessing for both methods and use the rendering path provided by <a href="https://github.com/google/dynibar#to-render-the-model">DynIBaR's offical codes</a>.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="comparison-with-rodynrf">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Comparison with RoDynRF</h2>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+          <!-- PDF Link. -->
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_rodynrf_comparison('lucia')">
+                <span>lucia</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_rodynrf_comparison('tennis')">
+                <span>tennis</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_rodynrf_comparison('car-turn')">
+                <span>car-turn</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_rodynrf_comparison('hike')">
+                <span>hike</span>
+              </span>
+          </div>
+        </div>
+        <div class="column">
+            <video id="video_comparison_with_rodynrf" 
+                autoplay controls muted loop playsinline height="100%">
+                <source id="source_comparison_with_rodynrf" 
+                    src="./assets/videos/comparisons/rodynrf/hike.mp4" 
+                    type="video/mp4">
+            </video>
+            <div class="columns">
+              <div class="column has-text-centered">
+                  <h2><b>RoDynRF</b> [Liu et al. CVPR 2023]</h2>
+              </div>
+              <div class="column has-text-centered">
+                  <h2><b>Ours</b></h2>
+              </div>
+            </div>
+            <div class="is-centered has-text-justified">
+              <span>*For a fair comparison, we use our video depth and pose preprocessing for both methods. We train RoDynRF with known camera poses and render the dolly-zoom effect provided by <a href="https://github.com/facebookresearch/robust-dynrf#rendering">RoDynRF's official codes</a>.</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ablation">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Ablation Study</h2>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+          <!-- PDF Link. -->
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_ablation('wo_displacement')">
+                <span>View-dependent displacement</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_ablation('wo_neighbor_blending')">
+                <span>Temporal neighbor blending</span>
+              </span>
+          </div>
+        </div>
+        <div class="is-centered">
+            <video id="video_ablation" 
+                autoplay controls muted loop playsinline width="100%">
+                <source id="source_ablation" 
+                    src="./assets/videos/comparisons/ablation/wo_displacement.mp4" 
+                    type="video/mp4">
+            </video>
+            <div class="columns has-text-centered">
+              <div class="column">
+                  <h2 id='label-abla'>without view-dependent displacement</h2>
+              </div>
+              <div class="column">
+                  <h2 id='label-full'>with view-dependent displacement</h2>
+              </div>
+            </div>
+            <div class="is-centered has-text-justified">
+              <span id="ablation_desc">The result without view-dependent displacement (left) may yield floaters or blurriness.</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="realtime-demo">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered ">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Real-time Interactive Demos</h2>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+          <!-- PDF Link. -->
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_realtime_demo('lucia')">
+                <span>lucia (864x480, 27 FPS)</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_realtime_demo('hike')">
+                <span>hike (864x480, 27 FPS)</span>
+              </span>
+              <span class="link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_realtime_demo('dog')">
+                <span>dog (960x512, 24 FPS)</span>
+              </span>
+          </div>
+        </div>
+        <div class="column">
+            <video id="video_realtime_demo" 
+                autoplay controls muted loop playsinline height="100%">
+                <source id="source_realtime_demo" 
+                    src="./assets/videos/real-time-demo/lucia.mp4" 
+                    type="video/mp4">
+            </video>
+        </div>
+        <div class="column has-text-justified">
+          <span>We demonstrate a real-time application where the mouse can move the viewpoint interactively. The real-time demos are run on an ipython notebook with an A100 GPU and screen-recorded.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="acknowledgements">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered ">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Acknowledgements</h2>
+        <div class="column has-text-justified">
+          <span>We thank Zhengqi Li and Yu-Lun Liu for sharing their experimental results of <a href="https://dynibar.github.io/">DynIBaR</a> and <a href="https://robust-dynrf.github.io/">RoDynRF</a> on the NVIDIA dataset, 
+            and thank Jae Shin Yoon for sharing the time performance details of <a href="https://gorokee.github.io/jsyoon//dynamic_synth/">[Yoon et al. CVPR 2020]</a>.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{lee2023casual-fvs,
+  author    = {Lee, Yao-Chih and Zhang, Zhoutong and Blackburn-Matzen, Kevin and Niklaus, Simon and Zhang, Jianming and Huang, Jia-Bin and Liu, Feng},
+  title     = {Fast View Synthesis of Casual Videos},
+  journal   = {arXiv preprint arXiv:2312.xxxxx},
+  year      = {2023},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="content is-centered">
+        <p>
+          This template is borrowed from <a
+          href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
