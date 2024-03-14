@@ -13,6 +13,14 @@ body {
     margin-bottom: 5px;
 }
 
+.button.is-dark:hover {
+  background-color: hsl(204, 77%, 25%) !important;
+}
+
+.button.is-dark.active {
+  background-color: hsl(204, 81%, 35%) !important;
+}
+
 .dnerf {
   font-variant: small-caps;
 }
