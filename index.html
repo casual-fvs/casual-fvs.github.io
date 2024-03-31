@@ -56,8 +56,11 @@
             Table of Contents
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="#our-results">
+            <a class="navbar-item" href="#demo">
               Our novel view synthesis of casual videos
+            </a>
+            <a class="navbar-item" href="#sora">
+              Our novel view synthesis on Sora videos
             </a>
             <a class="navbar-item" href="#abstract">
               Abstract
@@ -65,17 +68,13 @@
             <a class="navbar-item" href="#method-overview">
               Method overview
             </a>
-            <a class="navbar-item" href="#comparison-with-dynibar">
-              Comparison with DynIBaR
-            </a>
-            <a class="navbar-item" href="#comparison-with-rodynrf">
-              Comparison with RoDynRF
-            </a>
-            <a class="navbar-item" href="#ablation">
-              Ablation study
-            </a>
+            <a class="navbar-item" href="#compare-with-SOTA">
+              Experiments
             <a class="navbar-item" href="#realtime-demo">
               Real-time demo
+            </a>
+            <a class="navbar-item" href="#stereo">
+              Stereo video application
             </a>
             <a class="navbar-item" href="#acknowledgements">
               Acknowledgements
@@ -164,7 +163,7 @@
   </div>
 </section>
 
-<section id='sec:demo' class="hero is-light is-small">
+<section id='demo' class="hero is-light is-small">
   <div id='sec:demo-hero-body' class="hero-body">
     <div class="container">
       <h2 class="has-text-centered title">
@@ -341,7 +340,7 @@
 <br/>
 <br/>
 
-<section id='sec:sora' class="hero is-light is-small">
+<section id='sora' class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <h2 class="has-text-centered title">
@@ -481,7 +480,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="compare-with-SOTA">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -550,7 +549,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section"  id="compare-with-4DGS">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -596,7 +595,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="compare-with-depth-warp">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -638,7 +637,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="ablation-study">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
@@ -744,7 +743,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="realtime-demo">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered ">
       <div class="column is-four-fifths">
@@ -776,6 +775,44 @@
         </div>
         <div class="column">
           <span>We demonstrate a real-time application where the mouse can move the viewpoint interactively. The real-time demos are run on an ipython notebook with an A100 GPU and screen-recorded.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stereo">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered ">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Stereo video application <img src="assets/images/stereo-eyeglass-icon.svg" style="height: 24px;"/></h2>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+          <!-- PDF Link. -->
+              <span class="btn-interactive link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_stereo(this, 'street-cat')">
+                <span>street cat</span>
+              </span>
+              <span class="active btn-interactive link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_stereo(this, 'red-panda')">
+                <span>red panda</span>
+              </span>
+              <span class="btn-interactive link-block external-link button is-normal is-rounded is-dark"
+                   onclick="change_stereo(this, 'tortoise')">
+                <span>tortoise</span>
+              </span>
+          </div>
+        </div>
+        <div class="column">
+            <video id="video_stereo_demo" 
+                autoplay controls muted loop playsinline height="100%">
+                <source id="source_stereo_demo" 
+                    src="./assets/videos/stereo/red-panda.mp4" 
+                    type="video/mp4">
+            </video>
+        </div>
+        <div class="column">
+          <span>Given a monocular video, we can produce a stereo video through novel view synthesis on virtual left and right camera views</span>
         </div>
       </div>
     </div>

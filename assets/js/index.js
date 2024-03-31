@@ -158,6 +158,18 @@ function change_realtime_demo(ele, case_name) {
     video.play();
 }
 
+function change_stereo(ele, case_name) {
+    click_button('btn-interactive', ele);
+    console.log(case_name);
+    var video = document.getElementById('video_stereo_demo');
+    var source = document.getElementById('source_stereo_demo');
+    video.pause()
+    source.setAttribute('src', 
+                        './assets/videos/stereo/' + case_name + '.mp4')
+    video.load();
+    video.play();
+}
+
 var nerf_method = 'dynibar';
 var nerf_video = 'car-turn';
 function change_nerf_method(ele, method_name) {
